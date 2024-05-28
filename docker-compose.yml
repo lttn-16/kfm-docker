@@ -29,8 +29,6 @@ services:
       - DB_PORT=$MYSQLDB_DOCKER_PORT
       - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
       - HASH_PASS_USER=$HASH_PASS_USER
-    stdin_open: true
-    tty: true
 
   frontend:
     build: ./frontend
