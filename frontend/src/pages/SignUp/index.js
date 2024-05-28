@@ -10,17 +10,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const userData = {
+      email: data.get("email"),
+      password: data.get("password"),
+      first_name: data.get("firstName"),
+      last_name: data.get("lastName"),
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:6868/users/signup",
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
