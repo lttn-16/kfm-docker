@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  reverse-proxy:
+    image: traefik:v3.0
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   mysqldb:
     platform: linux/x86_64
     image: mysql:8.0
@@ -13,6 +22,8 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+    labels:
+      - "traefik.enable=false"
 
   backend:
     depends_on:
@@ -38,6 +49,10 @@ services:
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     depends_on:
       - backend
+    labels:
+      - "traefik.enable=true" 
+      - "traefik.http.routers.frontend.rule=Host(`$FRONTEND_HOST`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=$REACT_DOCKER_PORT"
 
 volumes: 
   db:
