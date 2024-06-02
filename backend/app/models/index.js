@@ -21,6 +21,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require("./user.model.js")(sequelize, Sequelize);
+db.reports = require("./report.model.js")(sequelize, Sequelize);
 const initializeDatabase = async () => {
   try {
       await sequelize.authenticate();
