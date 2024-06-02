@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import PrivateRoute from "./PrivateRoute";
+import List from "./pages/List";
 
 const RoutesApp = () => {
   return (
@@ -18,6 +19,10 @@ const RoutesApp = () => {
         <Route
           path="/welcome"
           element={<PrivateRoute element={<Welcome />} />}
+        />
+        <Route
+          path="/list"
+          element={<PrivateRoute element={<List />} />}
         />
         <Route exact path="/" element={<Navigate replace to="/login" />} />
       </Routes>
