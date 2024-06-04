@@ -31,8 +31,6 @@ services:
     build: ./backend
     restart: unless-stopped
     env_file: ./.env
-    ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
       - DB_HOST=mysqldb
       - DB_USER=$MYSQLDB_USER
@@ -41,6 +39,7 @@ services:
       - DB_PORT=$MYSQLDB_DOCKER_PORT
       - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
       - HASH_PASS_USER=$HASH_PASS_USER
+    scale: 5
     labels:
       - "traefik.enable=true" 
       - "traefik.http.routers.backend.rule=Host(`$BACKEND_HOST`)"
@@ -49,8 +48,6 @@ services:
   frontend:
     build: ./frontend
     env_file: ./.env
-    ports:
-      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     depends_on:
       - backend
     labels:
@@ -61,8 +58,6 @@ services:
   frontend-bpt:
     build: ./frontend
     env_file: ./.env
-    ports:
-      - $REACT_LOCAL_PORT_BPT:$REACT_DOCKER_PORT
     depends_on:
       - backend
     labels:
