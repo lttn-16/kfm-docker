@@ -40,7 +40,7 @@ export default function Login() {
         }
       );
       if (response.data.statusCode === 200) {
-        localStorage.setItem("authToken", "hello")
+        localStorage.setItem("authToken", response.data.content.accessToken)
         navigate("/welcome");
       }
     } catch (error) {

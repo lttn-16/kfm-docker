@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from 'axios';
 
 const Welcome = () => {
   const [val, setVal] = useState("");
   
-  const handleSubmit = () => {
-    console.log(val)
+  const handleSubmit = async () => {
+    await axios.post(
+      "http://localhost:6868/reports",
+      {duration: +val},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("authToken")}`
+        },
+      }
+    );
     setVal("")
   }
 
