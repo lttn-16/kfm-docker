@@ -8,7 +8,7 @@ const Welcome = () => {
   
   const handleSubmit = async () => {
     await axios.post(
-      "http://localhost:6868/reports",
+      "http://api.localhost/reports",
       {duration: +val},
       {
         headers: {

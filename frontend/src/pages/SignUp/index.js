@@ -30,7 +30,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:6868/users/signup",
+        "http://api.localhost/users/signup",
         userData,
         {
           headers: {
