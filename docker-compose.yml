@@ -58,5 +58,17 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`$FRONTEND_HOST`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=$REACT_DOCKER_PORT"
 
+  frontend-bpt:
+    build: ./frontend
+    env_file: ./.env
+    ports:
+      - $REACT_LOCAL_PORT_BPT:$REACT_DOCKER_PORT
+    depends_on:
+      - backend
+    labels:
+      - "traefik.enable=true" 
+      - "traefik.http.routers.frontend-bpt.rule=Host(`$FRONTEND_HOST_BPT`)"
+      - "traefik.http.services.frontend-bpt.loadbalancer.server.port=$REACT_DOCKER_PORT"
+
 volumes: 
   db:
