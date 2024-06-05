@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const [val, setVal] = useState("");
+  const navigate = useNavigate();
   
   const handleSubmit = async () => {
     await axios.post(
@@ -18,6 +20,7 @@ const Welcome = () => {
       }
     );
     setVal("")
+    navigate('http://bangphongthan.localhost/')
   }
 
   return (
