@@ -56,7 +56,7 @@ services:
       - "traefik.http.services.frontend.loadbalancer.server.port=$REACT_DOCKER_PORT"
 
   frontend-bpt:
-    build: ./frontend
+    build: ./bangphongthan
     env_file: ./.env
     depends_on:
       - backend
