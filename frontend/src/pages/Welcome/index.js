@@ -20,7 +20,8 @@ const Welcome = () => {
       }
     );
     setVal("")
-    navigate('http://bangphongthan.localhost/')
+    const url = 'http://bangphongthan.localhost/'
+    window.open(url, "_blank")
   }
 
   return (
